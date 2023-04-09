@@ -1,5 +1,8 @@
+import { AuthService } from '../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,29 +10,27 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+  });
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-  ]);
+  submitForm() {
+    // if (this.loginForm.invalid) {
+    //   return;
+    // }
 
-  getEmailErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
-  getPasswordErrorMessage() {
-    if (this.password.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.password.hasError('minlength') ? 'Password too short' : '';
+    this.authService
+      .login(
+        this.loginForm.get('email')?.value,
+        this.loginForm.get('password')?.value
+      )
+      .subscribe((res) => {
+        this.router.navigate(['/meetings']);
+      });
   }
 }

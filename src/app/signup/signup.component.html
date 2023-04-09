@@ -1,1 +1,64 @@
-<p>signup works!</p>
+<mat-card>
+  <mat-card-title>Sign Up</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          formControlName="firstName"
+          placeholder="Enter your first name"
+        />
+        <mat-error *ngIf="signUpForm.get('firstName')?.invalid"
+          >Please enter your first name</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input
+          matInput
+          formControlName="lastName"
+          placeholder="Enter your last name"
+        />
+        <mat-error *ngIf="signUpForm.get('lastName')?.invalid"
+          >Please enter your last name</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+        <mat-error *ngIf="signUpForm.get('email')?.invalid"
+          >Please enter a valid email</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Phone Number</mat-label>
+        <input
+          matInput
+          formControlName="phoneNumber"
+          placeholder="Enter your phone number"
+        />
+        <mat-error *ngIf="signUpForm.get('phoneNumber')?.invalid"
+          >Please enter your phone number</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          placeholder="Enter your password"
+        />
+        <mat-error *ngIf="signUpForm.get('password')?.invalid"
+          >Please enter a password with at least 6 characters</mat-error
+        >
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Sign Up</button>
+    </form>
+  </mat-card-content>
+</mat-card>
