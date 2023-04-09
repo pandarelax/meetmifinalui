@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!localStorage.getItem('token') && !localStorage.getItem('user')) {
+    if (!localStorage.getItem('accessToken') && !localStorage.getItem('user')) {
       this.router.navigate(['login'], {
         queryParams: { returnUrl: state.url },
       });
