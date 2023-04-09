@@ -24,7 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
-
     MatTableModule,
     ReactiveFormsModule,
   ],
