@@ -27,8 +27,8 @@ export class MeetingsComponent implements OnInit {
     this.meetingList$ = this.meetingService.getMeetingList();
     this.meetingList$.subscribe((data) => {
       this.meetingList = data;
+      console.log('meetingList: ', this.meetingList);
     });
-    console.log('this.meetingList: ', this.meetingList);
   }
 
   deleteMeeting(id: string) {

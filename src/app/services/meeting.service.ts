@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeetingService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getMeetingList(): Observable<any[]> {
-    return this.http.get<any[]>(`meetings`).pipe(
-      map((data) => {
-        return data;
+    const token = this.authService.getToken();
+
+    return this.http
+      .get<any[]>(`https://localhost:7061/api/meetings`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-    );
+      .pipe(
+        map((data) => {
+          console.log('data: ', data);
+          return data;
+        })
+      );
   }
 
   getMeetingById(id: string): Observable<any> {
